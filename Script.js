@@ -1,5 +1,5 @@
 document.getElementById('fetchData').addEventListener('click', function() {
-    // Smmgen API ကို ချိတ်ဆက်မယ့် code
+    // 097f5271429fa4c0401c36b09a426cc8
     fetch('https://api.smmgen.com/endpoint', {
         method: 'GET',
         headers: {
