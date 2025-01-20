@@ -1,5 +1,5 @@
 document.getElementById('fetchData').addEventListener('click', function() {
-         fetch('https://api.smmgen.com/endpoint', {
+         fetch('https://smmgen.com/api/v2', {
              method: 'GET',
              headers: {
                  'Authorization': 'Bearer YOUR_API_KEY', // 097f5271429fa4c0401c36b09a426cc8
