@@ -3,20 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smmgen API Website</title>
+    <title>Smmgen API Example</title>
     <style>
-        body { font-family: Arial, sans-serif; }
-        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
-        h1 { text-align: center; }
-        .api-response { background: #f4f4f4; padding: 10px; margin-top: 20px; }
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        button { margin: 10px; padding: 10px 20px; font-size: 16px; }
+        #apiResponse { margin-top: 20px; padding: 10px; background: #f4f4f4; border: 1px solid #ddd; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Smmgen API Website</h1>
-        <button id="fetchData">Fetch Data from Smmgen API</button>
-        <div class="api-response" id="apiResponse"></div>
-    </div>
-    <script src="script.js"></script>
+    <h1>Smmgen API Example</h1>
+    <button id="fetchServices">Get Services</button>
+    <button id="fetchBalance">Get Balance</button>
+    <button id="placeOrder">Place Order</button>
+    <div id="apiResponse"></div>
+
+    <script>
+        // API URL နဲ့ API Key
+        const API_URL = 'https://smmgen.com/api/v2';
+        const API_KEY = '097f5271429fa4c0401c36b09a426cc8'; // သင့်ရဲ့ API Key
+
+        // API နဲ့ ချိတ်ဆက်မယ့် Function
+        async function connectToAPI(action, data = {}) {
+            const postData = {
+                key: API_KEY,
+                action: action,
+                ...data
+            };
+
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams(postData).toString()
+            });
+
+            if (!response.ok) {
+                throw new Error(`API Error: ${response.status}`);
+            }
+
+            return response.json();
+        }
+
+        // Services ရယူခြင်း
+        async function getServices() {
+            return await connectToAPI('services');
+        }
+
+        // Balance ရယူခြင်း
+        async function getBalance() {
+            return await connectToAPI('balance');
+        }
+
+        // Order တင်ခြင်း
+        async function placeOrder(service, link, quantity, options = {}) {
+            const orderData = {
+                service: service,
+                link: link,
+                quantity: quantity,
+                ...options
+            };
+            return await connectToAPI('add', orderData);
+        }
+
+        // Button တွေနဲ့ ချိတ်ဆက်ပါ
+        document.getElementById('fetchServices').addEventListener('click', async () => {
+            try {
+                const services = await getServices();
+                document.getElementById('apiResponse').innerText = JSON.stringify(services, null, 2);
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('apiResponse').innerText = 'Error fetching services. Check console for details.';
+            }
+        });
+
+        document.getElementById('fetchBalance').addEventListener('click', async () => {
+            try {
+                const balance = await getBalance();
+                document.getElementById('apiResponse').innerText = JSON.stringify(balance, null, 2);
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('apiResponse').innerText = 'Error fetching balance. Check console for details.';
+            }
+        });
+
+        document.getElementById('placeOrder').addEventListener('click', async () => {
+            try {
+                const order = await placeOrder(1, 'http://example.com/test', 100);
+                document.getElementById('apiResponse').innerText = JSON.stringify(order, null, 2);
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('apiResponse').innerText = 'Error placing order. Check console for details.';
+            }
+        });
+    </script>
 </body>
 </html>
