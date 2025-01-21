@@ -3,99 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smmgen API Example</title>
+    <title>SMM Services - Home</title>
     <style>
-        body { font-family: Arial, sans-serif; padding: 20px; }
-        button { margin: 10px; padding: 10px 20px; font-size: 16px; }
-        #apiResponse { margin-top: 20px; padding: 10px; background: #f4f4f4; border: 1px solid #ddd; }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        header {
+            background-color: #8a2be2; /* Violet color */
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            padding: 20px;
+        }
+        .services {
+            flex: 1;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .services h2 {
+            color: #8a2be2;
+        }
+        .service-item {
+            position: relative;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+        .service-item img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+        .service-item:hover img {
+            transform: scale(1.1);
+        }
+        .service-details {
+            display: none;
+            position: absolute;
+            left: 80px;
+            top: 0;
+            background-color: #8a2be2;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            width: 200px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .service-item:hover .service-details {
+            display: block;
+        }
+        .content {
+            flex: 2;
+            margin-left: 20px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            background-color: #8a2be2;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
-    <h1>API Example</h1>
-    <button id="fetchServices">Get Services</button>
-    <button id="fetchBalance">Get Balance</button>
-    <button id="placeOrder">Place Order</button>
-    <div id="apiResponse"></div>
+    <header>
+        <h1>Welcome to SMM Services</h1>
+        <p>Your one-stop solution for all social media marketing needs.</p>
+    </header>
 
-    <script>
-        // API URL နဲ့ API Key
-        const API_URL = 'https://smmgen.com/api/v2';
-        const API_KEY = '097f5271429fa4c0401c36b09a426cc8'; // သင့်ရဲ့ API Key
+    <div class="container">
+        <div class="services">
+            <h2>Our Services</h2>
+            <div class="service-item">
+                <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram">
+                <div class="service-details">
+                    <strong>Instagram Services</strong>
+                    <ul>
+                        <li>Followers</li>
+                        <li>Likes</li>
+                        <li>Comments</li>
+                        <li>Views</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="service-item">
+                <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook">
+                <div class="service-details">
+                    <strong>Facebook Services</strong>
+                    <ul>
+                        <li>Page Likes</li>
+                        <li>Post Likes</li>
+                        <li>Comments</li>
+                        <li>Shares</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="service-item">
+                <img src="https://cdn-icons-png.flaticon.com/512/124/124021.png" alt="Twitter">
+                <div class="service-details">
+                    <strong>Twitter Services</strong>
+                    <ul>
+                        <li>Followers</li>
+                        <li>Retweets</li>
+                        <li>Likes</li>
+                        <li>Replies</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="service-item">
+                <img src="https://cdn-icons-png.flaticon.com/512/174/174883.png" alt="YouTube">
+                <div class="service-details">
+                    <strong>YouTube Services</strong>
+                    <ul>
+                        <li>Subscribers</li>
+                        <li>Views</li>
+                        <li>Likes</li>
+                        <li>Comments</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="service-item">
+                <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok">
+                <div class="service-details">
+                    <strong>TikTok Services</strong>
+                    <ul>
+                        <li>Followers</li>
+                        <li>Likes</li>
+                        <li>Views</li>
+                        <li>Shares</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
-        // API နဲ့ ချိတ်ဆက်မယ့် Function
-        async function connectToAPI(action, data = {}) {
-            const postData = {
-                key: API_KEY,
-                action: action,
-                ...data
-            };
+        <div class="content">
+            <h2>About Us</h2>
+            <p>We specialize in providing top-notch social media marketing services to help you grow your online presence. Our team of experts ensures that you get the best results in the shortest time possible.</p>
+            <h2>Why Choose Us?</h2>
+            <ul>
+                <li>High-quality services</li>
+                <li>Affordable pricing</li>
+                <li>Fast delivery</li>
+                <li>24/7 customer support</li>
+            </ul>
+        </div>
+    </div>
 
-            const response = await fetch(API_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: new URLSearchParams(postData).toString()
-            });
-
-            if (!response.ok) {
-                throw new Error(`API Error: ${response.status}`);
-            }
-
-            return response.json();
-        }
-
-        // Services ရယူခြင်း
-        async function getServices() {
-            return await connectToAPI('services');
-        }
-
-        // Balance ရယူခြင်း
-        async function getBalance() {
-            return await connectToAPI('balance');
-        }
-
-        // Order တင်ခြင်း
-        async function placeOrder(service, link, quantity, options = {}) {
-            const orderData = {
-                service: service,
-                link: link,
-                quantity: quantity,
-                ...options
-            };
-            return await connectToAPI('add', orderData);
-        }
-
-        // Button တွေနဲ့ ချိတ်ဆက်ပါ
-        document.getElementById('fetchServices').addEventListener('click', async () => {
-            try {
-                const services = await getServices();
-                document.getElementById('apiResponse').innerText = JSON.stringify(services, null, 2);
-            } catch (error) {
-                console.error('Error:', error);
-                document.getElementById('apiResponse').innerText = 'Error fetching services. Check console for details.';
-            }
-        });
-
-        document.getElementById('fetchBalance').addEventListener('click', async () => {
-            try {
-                const balance = await getBalance();
-                document.getElementById('apiResponse').innerText = JSON.stringify(balance, null, 2);
-            } catch (error) {
-                console.error('Error:', error);
-                document.getElementById('apiResponse').innerText = 'Error fetching balance. Check console for details.';
-            }
-        });
-
-        document.getElementById('placeOrder').addEventListener('click', async () => {
-            try {
-                const order = await placeOrder(1, 'http://example.com/test', 100);
-                document.getElementById('apiResponse').innerText = JSON.stringify(order, null, 2);
-            } catch (error) {
-                console.error('Error:', error);
-                document.getElementById('apiResponse').innerText = 'Error placing order. Check console for details.';
-            }
-        });
-    </script>
+    <footer>
+        <p>&copy; 2023 SMM Services. All rights reserved.</p>
+    </footer>
 </body>
 </html>
