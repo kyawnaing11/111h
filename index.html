@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SMM Services - Home</title>
+    <title>Banana Services - Home</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,9 +13,9 @@
             color: #333;
         }
         header {
-            background-color: #8a2be2; /* Violet color */
+            background-color: #8a2be2;
             color: white;
-            padding: 20px;
+            padding: 10px 20px;
             text-align: center;
         }
         .container {
@@ -24,50 +24,60 @@
         }
         .services {
             flex: 1;
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .services h2 {
-            color: #8a2be2;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Icons on the left */
+            gap: 15px;
+            margin-right: 20px;
         }
         .service-item {
-            position: relative;
-            margin-bottom: 15px;
             cursor: pointer;
+            padding: 10px;
+            border: 2px solid transparent;
+            border-radius: 50%;
+            transition: border-color 0.3s ease;
         }
         .service-item img {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            transition: transform 0.3s ease;
+            width: 25px;
+            height: 25px;
         }
-        .service-item:hover img {
-            transform: scale(1.1);
+        .service-item.selected {
+            border-color: #8a2be2; /* Violet border for selected service */
         }
         .service-details {
-            display: none;
-            position: absolute;
-            left: 80px;
-            top: 0;
-            background-color: #8a2be2;
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            width: 200px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .service-item:hover .service-details {
-            display: block;
-        }
-        .content {
             flex: 2;
-            margin-left: 20px;
             background-color: white;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .service-details h3 {
+            margin-top: 0;
+        }
+        .service-details input,
+        .service-details select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .service-details .cost {
+            font-size: 18px;
+            font-weight: bold;
+            color: #8a2be2;
+        }
+        .service-details button {
+            background-color: #8a2be2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .service-details button:hover {
+            background-color: #7b1fa2;
         }
         footer {
             background-color: #8a2be2;
@@ -82,90 +92,159 @@
 </head>
 <body>
     <header>
-        <h1>Welcome to SMM Services</h1>
-        <p>Your one-stop solution for all social media marketing needs.</p>
+        <h1>Banana Services</h1>
     </header>
 
     <div class="container">
+        <!-- Services List -->
         <div class="services">
-            <h2>Our Services</h2>
-            <div class="service-item">
-                <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram">
-                <div class="service-details">
-                    <strong>Instagram Services</strong>
-                    <ul>
-                        <li>Followers</li>
-                        <li>Likes</li>
-                        <li>Comments</li>
-                        <li>Views</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="service-item">
+            <div class="service-item" onclick="selectService('facebook')">
                 <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook">
-                <div class="service-details">
-                    <strong>Facebook Services</strong>
-                    <ul>
-                        <li>Page Likes</li>
-                        <li>Post Likes</li>
-                        <li>Comments</li>
-                        <li>Shares</li>
-                    </ul>
-                </div>
             </div>
-            <div class="service-item">
-                <img src="https://cdn-icons-png.flaticon.com/512/124/124021.png" alt="Twitter">
-                <div class="service-details">
-                    <strong>Twitter Services</strong>
-                    <ul>
-                        <li>Followers</li>
-                        <li>Retweets</li>
-                        <li>Likes</li>
-                        <li>Replies</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="service-item">
-                <img src="https://cdn-icons-png.flaticon.com/512/174/174883.png" alt="YouTube">
-                <div class="service-details">
-                    <strong>YouTube Services</strong>
-                    <ul>
-                        <li>Subscribers</li>
-                        <li>Views</li>
-                        <li>Likes</li>
-                        <li>Comments</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="service-item">
+            <div class="service-item" onclick="selectService('tiktok')">
                 <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok">
-                <div class="service-details">
-                    <strong>TikTok Services</strong>
-                    <ul>
-                        <li>Followers</li>
-                        <li>Likes</li>
-                        <li>Views</li>
-                        <li>Shares</li>
-                    </ul>
-                </div>
+            </div>
+            <div class="service-item" onclick="selectService('telegram')">
+                <img src="https://cdn-icons-png.flaticon.com/512/2111/2111644.png" alt="Telegram">
+            </div>
+            <div class="service-item" onclick="selectService('instagram')">
+                <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram">
+            </div>
+            <div class="service-item" onclick="selectService('twitter')">
+                <img src="https://cdn-icons-png.flaticon.com/512/124/124021.png" alt="Twitter">
             </div>
         </div>
 
-        <div class="content">
-            <h2>About Us</h2>
-            <p>We specialize in providing top-notch social media marketing services to help you grow your online presence. Our team of experts ensures that you get the best results in the shortest time possible.</p>
-            <h2>Why Choose Us?</h2>
-            <ul>
-                <li>High-quality services</li>
-                <li>Affordable pricing</li>
-                <li>Fast delivery</li>
-                <li>24/7 customer support</li>
-            </ul>
+        <!-- Service Details -->
+        <div class="service-details" id="serviceDetails">
+            <h3>Service Details</h3>
+            <p>Select a service to view details.</p>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2023 SMM Services. All rights reserved.</p>
+        <p>&copy; 2023 Banana Services. All rights reserved.</p>
     </footer>
+
+    <script>
+        // Sample data for services
+        const services = {
+            facebook: [
+                { id: 1, name: "Page Like & Follower", price: 0.10 },
+                { id: 2, name: "Page Follower", price: 0.15 },
+                { id: 3, name: "Profile Follower", price: 0.20 },
+                { id: 4, name: "Post Reactions", price: 0.05 },
+                { id: 5, name: "Random Comments", price: 0.10 },
+                { id: 6, name: "Custom Comments", price: 0.25 },
+                { id: 7, name: "Share", price: 0.15 },
+                { id: 8, name: "Views", price: 0.01 },
+                { id: 9, name: "Group Members", price: 0.50 },
+                { id: 10, name: "Page Reviews", price: 0.30 },
+                { id: 11, name: "Live View", price: 0.40 }
+            ],
+            tiktok: [
+                { id: 12, name: "Follower", price: 0.30 },
+                { id: 13, name: "Like", price: 0.10 },
+                { id: 14, name: "Views", price: 0.01 },
+                { id: 15, name: "Share", price: 0.20 },
+                { id: 16, name: "Save", price: 0.15 },
+                { id: 17, name: "Battle Point", price: 0.50 },
+                { id: 18, name: "Custom Comment", price: 0.25 },
+                { id: 19, name: "Random Comment", price: 0.10 },
+                { id: 20, name: "Verified Comment", price: 0.40 }
+            ],
+            telegram: [
+                { id: 21, name: "Active Group Members", price: 0.50 },
+                { id: 22, name: "Group Members", price: 0.30 },
+                { id: 23, name: "Channel Members", price: 0.40 },
+                { id: 24, name: "Positive Reactions", price: 0.10 },
+                { id: 25, name: "Negative Reactions", price: 0.10 },
+                { id: 26, name: "Post/Video Views", price: 0.05 },
+                { id: 27, name: "Bot Start", price: 0.20 },
+                { id: 28, name: "Premium Group Members", price: 1.00 },
+                { id: 29, name: "Premium Channel Members", price: 1.20 },
+                { id: 30, name: "Premium Positive Reactions", price: 0.30 },
+                { id: 31, name: "Premium Negative Reactions", price: 0.30 }
+            ],
+            instagram: [
+                { id: 32, name: "Like", price: 0.10 },
+                { id: 33, name: "Comment", price: 0.20 },
+                { id: 34, name: "Share", price: 0.15 }
+            ],
+            twitter: [
+                { id: 35, name: "Like", price: 0.10 },
+                { id: 36, name: "Comment", price: 0.20 },
+                { id: 37, name: "Re-tweet", price: 0.15 }
+            ]
+        };
+
+        // Track the selected service
+        let selectedService = null;
+
+        // Select a service
+        function selectService(platform) {
+            const serviceItems = document.querySelectorAll(".service-item");
+            const details = document.getElementById("serviceDetails");
+
+            // Remove border from all icons
+            serviceItems.forEach(item => item.classList.remove("selected"));
+
+            // Add border to the clicked icon
+            event.currentTarget.classList.add("selected");
+
+            // Display service details
+            details.innerHTML = `
+                <h3>${platform.charAt(0).toUpperCase() + platform.slice(1)} Services</h3>
+                <select id="serviceSelect" onchange="updateServiceDetails('${platform}')">
+                    <option value="">Select a service</option>
+                    ${services[platform].map(service => `
+                        <option value="${service.id}">${service.name} - $${service.price.toFixed(2)}</option>
+                    `).join("")}
+                </select>
+                <input type="text" placeholder="Paste service link" id="serviceLink">
+                <input type="number" placeholder="Enter amount" id="serviceAmount" oninput="calculateCost('${platform}')">
+                <p class="cost">Total Cost: $<span id="totalCost">0.00</span></p>
+                <button onclick="confirmPayment()">Submit Payment</button>
+            `;
+        }
+
+        // Update service details when a service is selected from the dropdown
+        function updateServiceDetails(platform) {
+            const select = document.getElementById("serviceSelect");
+            const selectedId = select.value;
+            const selectedService = services[platform].find(service => service.id == selectedId);
+
+            if (selectedService) {
+                document.getElementById("totalCost").textContent = "0.00"; // Reset total cost
+            }
+        }
+
+        // Calculate total cost
+        function calculateCost(platform) {
+            const select = document.getElementById("serviceSelect");
+            const selectedId = select.value;
+            const selectedService = services[platform].find(service => service.id == selectedId);
+
+            if (selectedService) {
+                const amount = document.getElementById("serviceAmount").value;
+                const totalCost = (selectedService.price * amount).toFixed(2);
+                document.getElementById("totalCost").textContent = totalCost;
+            }
+        }
+
+        // Confirm payment
+        function confirmPayment() {
+            const select = document.getElementById("serviceSelect");
+            const link = document.getElementById("serviceLink").value;
+            const amount = document.getElementById("serviceAmount").value;
+
+            if (!select.value || !link || !amount) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            alert("Payment confirmed! Thank you for your purchase.");
+        }
+    </script>
 </body>
 </html>
