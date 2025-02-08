@@ -3,248 +3,301 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Banana Services - Home</title>
+    <title>Advanced Leverage Calculator</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f5f5f5;
-            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/8/8c/Flag_of_Myanmar.svg');
+            background-size: cover;
+            background-position: center;
+            background-color: rgba(255, 255, 255, 0.5);
+            background-blend-mode: overlay;
         }
-        header {
-            background-color: #8a2be2;
-            color: white;
-            padding: 10px 20px;
+        .calculator {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
             text-align: center;
         }
-        .container {
-            display: flex;
-            padding: 20px;
+        .calculator h2 {
+            margin-bottom: 0.8rem;
+            color: #333;
+            font-size: 1.4rem;
         }
-        .services {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start; /* Icons on the left */
-            gap: 15px;
-            margin-right: 20px;
+        .calculator label {
+            display: block;
+            margin: 0.1rem 0 0.1rem;
+            color: #555;
+            font-size: 0.8rem;
+            text-align: left;
         }
-        .service-item {
-            cursor: pointer;
-            padding: 10px;
-            border: 2px solid transparent;
-            border-radius: 50%;
+        .calculator input, .calculator select {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: #333;
+            background: #f9f9f9;
             transition: border-color 0.3s ease;
         }
-        .service-item img {
-            width: 25px;
-            height: 25px;
+        .calculator input:focus, .calculator select:focus {
+            border-color: #28a745;
+            outline: none;
         }
-        .service-item.selected {
-            border-color: #8a2be2; /* Violet border for selected service */
+        .calculator .result {
+            margin-top: 0.8rem;
+            text-align: left;
+            font-size: 0.85rem;
+            color: #333;
         }
-        .service-details {
-            flex: 2;
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        .calculator .result div {
+            margin: 0.2rem 0;
+            padding: 0.3rem;
+            background: #f1f1f1;
+            border-radius: 6px;
         }
-        .service-details h3 {
-            margin-top: 0;
-        }
-        .service-details input,
-        .service-details select {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .service-details .cost {
-            font-size: 18px;
+        .calculator .result span {
             font-weight: bold;
-            color: #8a2be2;
         }
-        .service-details button {
-            background-color: #8a2be2;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
+        .slider-container {
+            margin-bottom: 0.5rem;
         }
-        .service-details button:hover {
-            background-color: #7b1fa2;
+        .slider-container label {
+            display: block;
+            margin-bottom: 0.1rem;
+            font-size: 0.8rem;
+            color: #555;
         }
-        footer {
-            background-color: #8a2be2;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            position: fixed;
-            bottom: 0;
+        .slider {
             width: 100%;
+            cursor: pointer;
+        }
+        .input-with-slider {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .input-with-slider input {
+            flex: 1;
+        }
+        .trade-direction {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .trade-direction button {
+            flex: 1;
+            padding: 0.6rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .trade-direction button.buy {
+            background: #28a745;
+            color: white;
+        }
+        .trade-direction button.sell {
+            background: #dc3545;
+            color: white;
+        }
+        .trade-direction button.active {
+            opacity: 0.8;
+        }
+        .profit {
+            color: #28a745;
+        }
+        .loss {
+            color: #dc3545;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Banana Services</h1>
-    </header>
 
-    <div class="container">
-        <!-- Services List -->
-        <div class="services">
-            <div class="service-item" onclick="selectService('facebook')">
-                <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook">
-            </div>
-            <div class="service-item" onclick="selectService('tiktok')">
-                <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok">
-            </div>
-            <div class="service-item" onclick="selectService('telegram')">
-                <img src="https://cdn-icons-png.flaticon.com/512/2111/2111644.png" alt="Telegram">
-            </div>
-            <div class="service-item" onclick="selectService('instagram')">
-                <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram">
-            </div>
-            <div class="service-item" onclick="selectService('twitter')">
-                <img src="https://cdn-icons-png.flaticon.com/512/124/124021.png" alt="Twitter">
+<div class="calculator">
+    <h2>Free Leverage Calculator</h2>
+    <h3>Watch AD to help me please</h3>
+    <form id="leverageForm">
+
+        <label for="investment">Initial Investment ($):</label>
+        <input type="number" id="investment" placeholder="Enter amount" required>
+
+        <div class="slider-container">
+            <label for="leverage">Leverage:</label>
+            <div class="input-with-slider">
+                <input type="number" id="leverageInput" min="1" max="200" value="1" required>
+                <input type="range" id="leverageSlider" min="1" max="200" value="1" class="slider">
             </div>
         </div>
 
-        <!-- Service Details -->
-        <div class="service-details" id="serviceDetails">
-            <h3>Service Details</h3>
-            <p>Select a service to view details.</p>
+        <div class="trade-direction">
+            <button type="button" id="buyButton" class="buy active" onclick="setTradeDirection('buy')">BUY</button>
+            <button type="button" id="sellButton" class="sell" onclick="setTradeDirection('sell')">SELL</button>
         </div>
+
+        <label for="entryPrice">Entry Price ($):</label>
+        <input type="number" id="entryPrice" placeholder="Enter entry price" required>
+
+        <label for="targetPrice">Target/Exit Price ($):</label>
+        <input type="number" id="targetPrice" placeholder="Enter target/exit price" required>
+
+        <div class="slider-container">
+            <label for="targetPercentage">Total Change Percentage:</label>
+            <div class="input-with-slider">
+                <input type="number" id="targetPercentageInput" min="-10000" max="10000" value="0" required>
+                <input type="range" id="targetPercentageSlider" min="-10000" max="10000" value="0" class="slider">
+            </div>
+        </div>
+    </form>
+
+    <div class="result" id="result">
+        <div>Position Size: <span id="positionSize"></span></div>
+        <div>Trade Direction: <span id="tradeDirection"></span></div>
+        <div>Leverage: <span id="leverageDisplay"></span></div>
+        <div>Profit/Loss: <span id="profitLoss"></span></div>
+        <div>Profit Percentage: <span id="profitPercentage"></span></div>
     </div>
+</div>
 
-    <footer>
-        <p>&copy; 2023 Banana Services. All rights reserved.</p>
-    </footer>
+<script>
+    const investmentInput = document.getElementById('investment');
+    const leverageInput = document.getElementById('leverageInput');
+    const leverageSlider = document.getElementById('leverageSlider');
+    const buyButton = document.getElementById('buyButton');
+    const sellButton = document.getElementById('sellButton');
+    const entryPriceInput = document.getElementById('entryPrice');
+    const targetPriceInput = document.getElementById('targetPrice');
+    const targetPercentageInput = document.getElementById('targetPercentageInput');
+    const targetPercentageSlider = document.getElementById('targetPercentageSlider');
+    const languageSelect = document.getElementById('language');
 
-    <script>
-        // Sample data for services
-        const services = {
-            facebook: [
-                { id: 1, name: "Page Like & Follower", price: 0.10 },
-                { id: 2, name: "Page Follower", price: 0.15 },
-                { id: 3, name: "Profile Follower", price: 0.20 },
-                { id: 4, name: "Post Reactions", price: 0.05 },
-                { id: 5, name: "Random Comments", price: 0.10 },
-                { id: 6, name: "Custom Comments", price: 0.25 },
-                { id: 7, name: "Share", price: 0.15 },
-                { id: 8, name: "Views", price: 0.01 },
-                { id: 9, name: "Group Members", price: 0.50 },
-                { id: 10, name: "Page Reviews", price: 0.30 },
-                { id: 11, name: "Live View", price: 0.40 }
-            ],
-            tiktok: [
-                { id: 12, name: "Follower", price: 0.30 },
-                { id: 13, name: "Like", price: 0.10 },
-                { id: 14, name: "Views", price: 0.01 },
-                { id: 15, name: "Share", price: 0.20 },
-                { id: 16, name: "Save", price: 0.15 },
-                { id: 17, name: "Battle Point", price: 0.50 },
-                { id: 18, name: "Custom Comment", price: 0.25 },
-                { id: 19, name: "Random Comment", price: 0.10 },
-                { id: 20, name: "Verified Comment", price: 0.40 }
-            ],
-            telegram: [
-                { id: 21, name: "Active Group Members", price: 0.50 },
-                { id: 22, name: "Group Members", price: 0.30 },
-                { id: 23, name: "Channel Members", price: 0.40 },
-                { id: 24, name: "Positive Reactions", price: 0.10 },
-                { id: 25, name: "Negative Reactions", price: 0.10 },
-                { id: 26, name: "Post/Video Views", price: 0.05 },
-                { id: 27, name: "Bot Start", price: 0.20 },
-                { id: 28, name: "Premium Group Members", price: 1.00 },
-                { id: 29, name: "Premium Channel Members", price: 1.20 },
-                { id: 30, name: "Premium Positive Reactions", price: 0.30 },
-                { id: 31, name: "Premium Negative Reactions", price: 0.30 }
-            ],
-            instagram: [
-                { id: 32, name: "Like", price: 0.10 },
-                { id: 33, name: "Comment", price: 0.20 },
-                { id: 34, name: "Share", price: 0.15 }
-            ],
-            twitter: [
-                { id: 35, name: "Like", price: 0.10 },
-                { id: 36, name: "Comment", price: 0.20 },
-                { id: 37, name: "Re-tweet", price: 0.15 }
-            ]
-        };
+    let tradeDirection = 'buy'; // Default trade direction
 
-        // Track the selected service
-        let selectedService = null;
+    // Set Trade Direction
+    function setTradeDirection(direction) {
+        tradeDirection = direction;
+        if (direction === 'buy') {
+            buyButton.classList.add('active');
+            sellButton.classList.remove('active');
+        } else {
+            sellButton.classList.add('active');
+            buyButton.classList.remove('active');
+        }
+        calculate();
+    }
 
-        // Select a service
-        function selectService(platform) {
-            const serviceItems = document.querySelectorAll(".service-item");
-            const details = document.getElementById("serviceDetails");
+    // Sync Leverage Input and Slider
+    leverageInput.addEventListener('input', () => {
+        leverageSlider.value = leverageInput.value;
+        updateTargetPriceFromPercentage();
+        calculate();
+    });
+    leverageSlider.addEventListener('input', () => {
+        leverageInput.value = leverageSlider.value;
+        updateTargetPriceFromPercentage();
+        calculate();
+    });
 
-            // Remove border from all icons
-            serviceItems.forEach(item => item.classList.remove("selected"));
+    // Sync Target Percentage Input and Slider
+    targetPercentageInput.addEventListener('input', () => {
+        targetPercentageSlider.value = targetPercentageInput.value;
+        updateTargetPriceFromPercentage();
+        calculate();
+    });
+    targetPercentageSlider.addEventListener('input', () => {
+        targetPercentageInput.value = targetPercentageSlider.value;
+        updateTargetPriceFromPercentage();
+        calculate();
+    });
 
-            // Add border to the clicked icon
-            event.currentTarget.classList.add("selected");
+    // Update Target Price based on Total Change Percentage
+    function updateTargetPriceFromPercentage() {
+        const entryPrice = parseFloat(entryPriceInput.value);
+        const leverage = parseFloat(leverageInput.value);
+        const totalChangePercentage = parseFloat(targetPercentageInput.value);
+        if (!isNaN(entryPrice) && !isNaN(totalChangePercentage)) {
+            const realChangePercentage = totalChangePercentage / leverage;
+            const targetPrice = entryPrice * (1 + (realChangePercentage / 100));
+            targetPriceInput.value = targetPrice.toFixed(2);
+        }
+    }
 
-            // Display service details
-            details.innerHTML = `
-                <h3>${platform.charAt(0).toUpperCase() + platform.slice(1)} Services</h3>
-                <select id="serviceSelect" onchange="updateServiceDetails('${platform}')">
-                    <option value="">Select a service</option>
-                    ${services[platform].map(service => `
-                        <option value="${service.id}">${service.name} - $${service.price.toFixed(2)}</option>
-                    `).join("")}
-                </select>
-                <input type="text" placeholder="Paste service link" id="serviceLink">
-                <input type="number" placeholder="Enter amount" id="serviceAmount" oninput="calculateCost('${platform}')">
-                <p class="cost">Total Cost: $<span id="totalCost">0.00</span></p>
-                <button onclick="confirmPayment()">Submit Payment</button>
-            `;
+    // Update Total Change Percentage based on Target Price
+    targetPriceInput.addEventListener('input', () => {
+        const entryPrice = parseFloat(entryPriceInput.value);
+        const targetPrice = parseFloat(targetPriceInput.value);
+        const leverage = parseFloat(leverageInput.value);
+        if (!isNaN(entryPrice) && !isNaN(targetPrice) && entryPrice !== 0) {
+            const realChangePercentage = ((targetPrice - entryPrice) / entryPrice) * 100;
+            const totalChangePercentage = realChangePercentage * leverage;
+            targetPercentageInput.value = totalChangePercentage.toFixed(2);
+            targetPercentageSlider.value = totalChangePercentage.toFixed(2);
+        }
+        calculate();
+    });
+
+    // Update Target Price and Percentage when Entry Price changes
+    entryPriceInput.addEventListener('input', () => {
+        updateTargetPriceFromPercentage();
+        calculate();
+    });
+
+    // Main Calculation Function
+    function calculate() {
+        const investment = parseFloat(investmentInput.value);
+        const leverage = parseFloat(leverageInput.value);
+        const entryPrice = parseFloat(entryPriceInput.value);
+        const targetPrice = parseFloat(targetPriceInput.value);
+        const totalChangePercentage = parseFloat(targetPercentageInput.value);
+
+        if (isNaN(investment) || investment <= 0 || isNaN(entryPrice) || entryPrice <= 0 || isNaN(targetPrice)) {
+            return; // Skip calculation if inputs are invalid
         }
 
-        // Update service details when a service is selected from the dropdown
-        function updateServiceDetails(platform) {
-            const select = document.getElementById("serviceSelect");
-            const selectedId = select.value;
-            const selectedService = services[platform].find(service => service.id == selectedId);
-
-            if (selectedService) {
-                document.getElementById("totalCost").textContent = "0.00"; // Reset total cost
-            }
+        const positionSize = investment * leverage;
+        const realChangePercentage = ((targetPrice - entryPrice) / entryPrice) * 100;
+        const profitPercentage = realChangePercentage * leverage; // Leverage-adjusted profit percentage
+        let profit;
+        if (tradeDirection === 'buy') {
+            profit = (targetPrice - entryPrice) * (investment / entryPrice) * leverage;
+        } else {
+            profit = (entryPrice - targetPrice) * (investment / entryPrice) * leverage;
         }
 
-        // Calculate total cost
-        function calculateCost(platform) {
-            const select = document.getElementById("serviceSelect");
-            const selectedId = select.value;
-            const selectedService = services[platform].find(service => service.id == selectedId);
+        // Update result display
+        document.getElementById('positionSize').innerText = `$${positionSize.toFixed(2)}`;
+        document.getElementById('tradeDirection').innerText = tradeDirection.toUpperCase();
+        document.getElementById('leverageDisplay').innerText = `${leverage}x`;
+        document.getElementById('profitLoss').innerText = `$${profit.toFixed(2)}`;
+        document.getElementById('profitPercentage').innerText = `${profitPercentage.toFixed(2)}%`;
 
-            if (selectedService) {
-                const amount = document.getElementById("serviceAmount").value;
-                const totalCost = (selectedService.price * amount).toFixed(2);
-                document.getElementById("totalCost").textContent = totalCost;
-            }
+        // Color coding for profit/loss
+        const profitLossElement = document.getElementById('profitLoss');
+        const profitPercentageElement = document.getElementById('profitPercentage');
+        if (profit >= 0) {
+            profitLossElement.className = 'profit';
+            profitPercentageElement.className = 'profit';
+        } else {
+            profitLossElement.className = 'loss';
+            profitPercentageElement.className = 'loss';
         }
+    }
 
-        // Confirm payment
-        function confirmPayment() {
-            const select = document.getElementById("serviceSelect");
-            const link = document.getElementById("serviceLink").value;
-            const amount = document.getElementById("serviceAmount").value;
+    // Initial calculation
+    calculate();
+</script>
 
-            if (!select.value || !link || !amount) {
-                alert("Please fill in all fields.");
-                return;
-            }
-
-            alert("Payment confirmed! Thank you for your purchase.");
-        }
-    </script>
 </body>
 </html>
